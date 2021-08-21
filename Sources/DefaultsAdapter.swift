@@ -75,4 +75,12 @@ public struct DefaultsAdapter<KeyStore: DefaultsKeyStore> {
     public func removeAll() {
         defaults.removeAll()
     }
+    
+    public func removeAll<T: DefaultsSerializable>(excluded: DefaultsKey<T>...) {
+        defaults.removeAll(excluded: excluded)
+    }
+    
+    public func removeAll<T: DefaultsSerializable>(excluded: [DefaultsKey<T>]) {
+        defaults.removeAll(excluded: excluded)
+    }
 }

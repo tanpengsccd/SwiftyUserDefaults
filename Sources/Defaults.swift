@@ -55,6 +55,29 @@ public extension UserDefaults {
             removeObject(forKey: key)
         }
     }
+    
+    /// Removes all keys and values from user defaults excluded keys
+    /// Use with caution!
+    /// - Note: This method only removes keys on the receiver `UserDefaults` object.
+    ///         System-defined keys will still be present afterwards.
+    func removeAll<T>(excluded: DefaultsKey<T>...) {
+        let excludedKeys = excluded.map{$0._key}
+        for (key, _) in dictionaryRepresentation().filter({ !excludedKeys.contains($0.key) }) {
+            removeObject(forKey: key)
+        }
+    }
+    
+    /// Removes all keys and values from user defaults excluded keys
+    /// Use with caution!
+    /// - Note: This method only removes keys on the receiver `UserDefaults` object.
+    ///         System-defined keys will still be present afterwards.
+    func removeAll<T>(excluded: [DefaultsKey<T>]) {
+        let excludedKeys = excluded.map{$0._key}
+        for (key, _) in dictionaryRepresentation().filter({ !excludedKeys.contains($0.key) }) {
+            removeObject(forKey: key)
+        }
+    }
+
 }
 
 internal extension UserDefaults {
